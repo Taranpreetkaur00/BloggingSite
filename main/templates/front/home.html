@@ -1,0 +1,178 @@
+{% extends 'front/master.html' %}
+{% load static %}
+{% block title %} <title> {{site.name}} | Home </title> 
+<meta charset="utf-8">
+<meta name="description" content="{{site.seo_txt}}">
+<meta name="keywords" content="{{site_keywords}}">
+<meta name="og:{{site.name}}" property = "og:{{site.name}}" content="{{site.seo_txt}}">
+
+{% endblock %}
+
+{% block body %}
+
+
+		<!-- section -->
+		<div class="section">
+
+			<!-- container -->
+			<div class="container">
+				<!-- row -->
+				<div class="row">	
+					<!-- post -->
+					{% for lastblog in lastblog %}
+					<div class="col-md-6">
+						<div class="post post-thumb">
+							<a class="post-img" href="{%url 'blog_detail' word=lastblog.name %}"><img style="width: 555px; height: 350px;" src="{{lastblog.imgurl}}" alt=""></a>
+							<div class="post-body">
+								<div class="post-meta">
+									<a class="post-category cat-2" href="category.html">{{lastblog.category}}</a>
+									<span class="post-date">{{lastblog.date}}</span>
+								</div>
+								<h3 class="post-title"><a href="{%url 'blog_detail' word=lastblog.name %}">{{lastblog.name}}</a></h3>
+							</div>
+						</div>
+					</div>
+					<!-- /post -->
+					{% endfor %}
+					
+				</div>
+				<!-- /row -->
+
+				
+
+
+				<!-- row -->
+				
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /section -->
+	<!-- section -->
+	{% for blogcat in cat %}
+	{% if blogcat.count != 0 %}
+		<div class="section section-grey">
+			<!-- container -->
+			<div class="container">
+				<!-- row -->
+				<div class="row">
+					<div class="col-md-12">
+						<div class="section-title text-center">
+							<h2>{{blogcat.name}}</h2>
+						</div>
+					</div>
+					
+					{% for n in blog2 %}
+					{% if blogcat.pk == n.ocatid  %}
+					<!-- post -->
+					<div class="col-md-4">
+						<div class="post">
+							<a class="post-img" href="{%url 'blog_detail' word=n.name %}"><img style="width: 100%;height:200px;" src="{{n.imgurl}}" alt=""></a>
+							<div class="post-body">
+								<div class="post-meta">
+									<a class="post-category cat-2" href="category.html">{{n.category}}</a>
+									<span class="post-date">{{n.date}}</span>
+								</div>
+								<h3 class="post-title"><a href="{%url 'blog_detail' word=n.name %}">{{n.name}}</a></h3>
+							</div>
+						</div>
+					</div>
+					<!-- /post -->
+					{% endif %}
+					{% endfor %}
+
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /section -->
+		{% endif %}
+		{% endfor %}
+		<!-- section -->
+		<div class="section">
+			<!-- container -->
+			<div class="container">
+				<!-- row -->
+				<div class="row">
+					<div class="col-md-8">
+						<div class="row">
+
+							<div class="col-md-12">
+								<div class="section-title">
+									<h2>Latest Blogs</h2>
+									
+								</div>
+							</div>
+							{% for i in blog %}
+							<!-- post -->
+							<div class="col-md-12">
+								<div class="post post-row">
+									<a class="post-img" href="{%url 'blog_detail' word=i.name %}"><img style="height: 200px;"  src="{{i.imgurl}}" alt=""></a>
+									<div class="post-body">
+										<div class="post-meta">
+											<a class="post-category cat-2" href="category.html">{{i.category}}</a>
+											<span class="post-date">{{i.date}}  -by {{i.writer_name}}</span>
+										</div>
+										<h3 class="post-title"><a href="{%url 'blog_detail' word=i.name %}">{{i.name}}</a></h3>
+
+										<p>{{i.short_txt |safe}}</p>
+									</div>
+								</div>
+							</div>
+							<!-- /post -->
+							{% endfor %}
+							
+							
+							<div class="col-md-12">
+								<div class="section-row">
+									<button class="primary-button center-block">Load More</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-4">
+						
+						<!-- catagories -->
+						<div class="aside-widget">
+							<div class="section-title">
+								<h2>Catagories</h2>
+							</div>
+							<div class="category-widget">
+								{% for c in cat %}
+								{% if c.count != 0 %}
+								<ul>
+									<li><a href="#" class="cat-1"> {{c.name}} <span>{{c.count}}</span></a></li>
+								</ul>
+								{% endif %}
+								{% endfor %}
+							</div>
+						</div>
+						<!-- /catagories -->
+						
+						<!-- tags -->
+						<div class="aside-widget">
+							<div class="tags-widget">
+								<ul>
+									<li><a href="#">Chrome</a></li>
+									<li><a href="#">CSS</a></li>
+									<li><a href="#">Tutorial</a></li>
+									<li><a href="#">Backend</a></li>
+									<li><a href="#">JQuery</a></li>
+									<li><a href="#">Design</a></li>
+									<li><a href="#">Development</a></li>
+									<li><a href="#">JavaScript</a></li>
+									<li><a href="#">Website</a></li>
+								</ul>
+							</div>
+						</div>
+						<!-- /tags -->
+					</div>
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /section -->
+
+{% endblock %}

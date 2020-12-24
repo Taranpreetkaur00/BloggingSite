@@ -1,0 +1,97 @@
+{% extends 'back/master.html' %}
+{% load static %}
+{% block css %}
+<link href="{% static 'back/vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+{% endblock %}
+{% block body %}
+            <!-- Container Fluid-->
+            <div class="container-fluid" id="container-wrapper">
+              <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <h1 class="h3 mb-0 text-gray-800">Permissions</h1>
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="./">Home</a></li>
+                
+                  <li class="breadcrumb-item active" aria-current="page">Permissions</li>
+                </ol>
+              </div>
+    
+              <!-- Row -->
+              <div class="row">
+                <!-- Datatables -->
+                <div class="col-lg-12">
+                    <div class="card mb-4">
+                      <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">Add Permissions</h6>
+                      </div>
+                     <div class="card-body"> 
+                      
+                      <form action="{%url 'manager_perms_add' %}"  enctype="multipart/form-data"  method="post">
+                          {% csrf_token %}
+                          <div class="form-group">
+                          <div class="row">                        
+                          <div class="col-sm-4">
+                              <input type="text" id="name" name="name" class="form-control" placeholder="Permission" required>
+                          </div>
+                          <div class="col-sm-4">
+                            <input type="text" id="cname" name="cname" class="form-control" placeholder="Permission Code Name" required>
+                        </div>
+                          <div class="col-sm-4">
+                              <button class="btn btn-dark" type="submit">Submit</button>
+                          </div>
+                          </div>
+                          </div>    
+                          
+                          
+                      </form>
+                      </div>
+                     </div> 
+                </div> 
+                <div class="col-lg-12">
+                  <div class="card mb-4">
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                      <h6 class="m-0 font-weight-bold text-primary">Permissions List</h6>
+                    </div>
+                    <div class="table-responsive p-3">
+                      <table class="table align-items-center table-flush" id="dataTable">
+                        <thead class="thead-light">
+                          <tr>
+                           
+                            <th>Name</th>
+                            <th>Action</th>
+                          </tr>
+                        </thead>
+                        
+                        <tbody>
+                          {% for n in perms %}
+                          <tr>
+                           
+                            <td>{{n.name}}</td>
+                            <td>
+                              
+                              <a href=" {%url 'manager_perms_del' name=n.name %} " class="btn  btn-xs"><i class="fas fa-trash "></i></a>
+                            </td>
+                          </tr>
+                         {% endfor %} 
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+          
+
+{% endblock %} 
+
+{% block script %}
+<!-- Page level plugins -->
+<script src="{% static 'back/vendor/datatables/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'back/vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+
+<!-- Page level custom scripts -->
+<script>
+  $(document).ready(function () {
+    $('#dataTable').DataTable(); // ID From dataTable 
+    $('#dataTableHover').DataTable(); // ID From dataTable with Hover
+  });
+</script>
+
+{% endblock %}

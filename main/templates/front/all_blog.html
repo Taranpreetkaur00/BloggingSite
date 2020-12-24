@@ -1,0 +1,132 @@
+{% extends 'front/master.html' %}
+{% load static %}
+{% block title %} <title> {{site.name}} | Category </title> 
+<meta charset="utf-8">
+<meta name="description" content="{{site.seo_txt}}">
+<meta name="keywords" content="{{site_keywords}}">
+{% endblock %}
+{% block body %}
+
+
+
+</header>
+<!-- /Header -->
+
+<!-- section -->
+<div class="section">
+<!-- container -->
+<div class="container">
+    <!-- row -->
+    <div class="row">
+        <div class="col-md-8">
+            <div class="row">
+               
+                {% for i in allblog %}           
+                <!-- post -->
+                <div class="col-md-6">
+                    <div class="post">
+                        <a class="post-img" href="{%url 'blog_detail' word=i.name %}"><img src="{{i.imgurl}}" alt=""></a>
+                        <div class="post-body">
+                            <div class="post-meta">
+                                <a class="post-category cat-2" href="#">{{i.category}}</a>
+                                <span class="post-date">{{i.date}}  by- {{i.writer}}</span>
+                            </div>
+                            <h3 class="post-title"><a href="{%url 'blog_detail' word=i.name %}">{{i.name}}</a></h3>
+
+                            <p>{{i.short_txt |safe}}</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- /post -->
+                {% endfor %}
+            
+                
+            </div>    
+        </div>
+        
+        <div class="col-md-4">
+           
+            
+            <!-- post widget -->
+            <div class="aside-widget">
+                <div class="section-title">
+                    <h2>Most Read</h2>
+                </div>
+
+                <div class="post post-widget">
+                    <a class="post-img" href="blog-post.html"><img src="{% static 'front/img/widget-1.jpg' %}" alt=""></a>
+                    <div class="post-body">
+                        <h3 class="post-title"><a href="blog-post.html">Tell-A-Tool: Guide To Web Design And Development Tools</a></h3>
+                    </div>
+                </div>
+
+                <div class="post post-widget">
+                    <a class="post-img" href="blog-post.html"><img src="{% static 'front/img/widget-2.jpg' %}" alt=""></a>
+                    <div class="post-body">
+                        <h3 class="post-title"><a href="blog-post.html">Pagedraw UI Builder Turns Your Website Design Mockup Into Code Automatically</a></h3>
+                    </div>
+                </div>
+
+                <div class="post post-widget">
+                    <a class="post-img" href="blog-post.html"><img src="{% static 'front/img/widget-3.jpg' %}" alt=""></a>
+                    <div class="post-body">
+                        <h3 class="post-title"><a href="blog-post.html">Why Node.js Is The Coolest Kid On The Backend Development Block!</a></h3>
+                    </div>
+                </div>
+
+                <div class="post post-widget">
+                    <a class="post-img" href="blog-post.html"><img src="{% static 'front/img/widget-4.jpg' %}" alt=""></a>
+                    <div class="post-body">
+                        <h3 class="post-title"><a href="blog-post.html">Tell-A-Tool: Guide To Web Design And Development Tools</a></h3>
+                    </div>
+                </div>
+            </div>
+            <!-- /post widget -->
+            
+           <!-- catagories -->
+						<div class="aside-widget">
+							<div class="section-title">
+								<h2>Catagories</h2>
+							</div>
+							<div class="category-widget">
+								{% for c in cat %}
+								{% if c.count != 0 %}
+								<ul>
+									<li><a href="#" class="cat-1"> {{c.name}} <span>{{c.count}}</span></a></li>
+								</ul>
+								{% endif %}
+								{% endfor %}
+							</div>
+						</div>
+						<!-- /catagories -->
+            
+            <!-- tags -->
+            <div class="aside-widget">
+                <div class="tags-widget">
+                    <ul>
+                        <li><a href="#">Chrome</a></li>
+                        <li><a href="#">CSS</a></li>
+                        <li><a href="#">Tutorial</a></li>
+                        <li><a href="#">Backend</a></li>
+                        <li><a href="#">JQuery</a></li>
+                        <li><a href="#">Design</a></li>
+                        <li><a href="#">Development</a></li>
+                        <li><a href="#">JavaScript</a></li>
+                        <li><a href="#">Website</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /tags -->
+            
+            
+        </div>
+    </div>
+    <!-- /row -->
+</div>
+<!-- /container -->
+</div>
+<!-- /section -->
+
+
+
+{% endblock  %}

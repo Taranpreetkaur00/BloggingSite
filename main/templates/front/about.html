@@ -1,0 +1,94 @@
+{% extends 'front/master.html' %}
+{% load static %}
+{% block title %} <title> {{site.name}} | About </title> 
+<meta charset="utf-8">
+<meta name="description" content="{{site.seo_txt}}">
+<meta name="keywords" content="{{site_keywords}}">
+{% endblock %}
+{% block body %}
+<!-- Page Header -->
+<div class="page-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10">
+                <ul class="page-header-breadcrumb">
+                    <li><a href="/">Home</a></li>
+                    <li>About Us</li>
+                </ul>
+                <h1>About Us</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Page Header -->
+</header>
+<!-- /Header -->
+
+<!-- section -->
+<div class="section">
+<!-- container -->
+<div class="container">
+    <!-- row -->
+    <div class="row">
+        <div class="col-md-8">
+            <div class="section-row">
+                
+                <figure class="figure-img">
+                    <img class="img-responsive" src="{% static 'front/img/about-1.jpg' %}" alt="">
+                </figure>
+                <p>{{site.abouttxt|safe }}</p>
+            </div>
+            <div class="row section-row">
+                <div class="col-md-6">
+                    <figure class="figure-img">
+                        <img class="img-responsive" src="{% static 'front/img/about-2.jpg' %}" alt="">
+                    </figure>
+                </div>
+                <div class="col-md-6">
+                    <h3>Our Mission</h3>
+                    <p>Id usu mutat debet tempor, fugit omnesque posidonium nec ei. An assum labitur ocurreret qui, eam aliquid ornatus tibique ut.</p>
+                    <ul class="list-style">
+                        <li><p>Vix mollis admodum ei, vis legimus voluptatum ut.</p></li>
+                        <li><p>Cu cum alia vide malis. Vel aliquid facilis adolescens.</p></li>
+                        <li><p>Laudem rationibus vim id. Te per illum ornatus.</p></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- aside -->
+        <div class="col-md-4">
+            <!-- ad -->
+            <div class="aside-widget text-center">
+                <a href="#" style="display: inline-block;margin: auto;">
+                    <img class="img-responsive" src="{% static 'front/img/ad-1.jpg' %}" alt="">
+                </a>
+            </div>
+            <!-- /ad -->
+
+            <!-- post widget -->
+            <div class="aside-widget">
+                <div class="section-title">
+                    <h2>Most Read</h2>
+                </div>
+                {% for most in mostblog %}
+                <div class="post post-widget">
+                    <a class="post-img" href="{%url 'blog_detail' word=most.name %}"><img src="{{most.imgurl}}" alt=""></a>
+                    <div class="post-body">
+                        <h3 class="post-title"><a href="{%url 'blog_detail' word=most.name %}">{{most.name}}</a></h3>
+                    </div>
+                </div>
+                {% endfor %}
+
+                
+            </div>
+            <!-- /post widget -->
+        </div>
+        <!-- /aside -->
+    </div>
+    <!-- /row -->
+</div>
+<!-- /container -->
+</div>
+<!-- /section -->
+{% endblock %}

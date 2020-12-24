@@ -1,0 +1,265 @@
+{% extends 'front/master.html' %}
+{% load static %}
+
+{% load qr_code %}
+
+{% block title %} 
+{% for i in showblog  %}
+<title> {{site.name}} | {{i.name}} </title>
+{% endfor %} 
+<meta charset="utf-8">
+<meta name="description" content="{{site.seo_txt}}">
+<meta name="keywords" content="{{tagname}}">
+{% endblock %}
+
+{% block body %}
+			<!-- Page Header -->
+			{% for i in showblog  %}
+			<div id="post-header" class="page-header">
+				
+				<div class="container">
+					<div class="row">
+						<div class="col-md-10">
+							<div class="post-meta">
+								<a class="post-category cat-2" href="category.html">{{i.category}}</a>
+								<span style="color: black;" class="post-date">{{i.date}} | BY {{i.writer_name}} </span> <br>
+								<span style="color: black;" class="post-date"> Views {{i.show}}  |  {{cmcount}}  Comments  </span>
+							</div>
+							<h1 style="color: black;">{{i.name}}</h1>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- /Page Header -->
+		</header>
+		<!-- /Header -->
+
+		<!-- section -->
+		<div class="section">
+			<!-- container -->
+			<div class="container">
+				<!-- row -->
+				<div class="row">
+					<!-- Post content -->
+					<div class="col-md-8">
+						<div class="section-row sticky-container">
+							<div class="main-post">
+								<figure class="figure-img">
+									<img style="width: 770px; height:300px;" class="img-responsive" src="{{i.imgurl}}" alt="">
+									
+								</figure>
+								<p>{{i.body_txt | safe}}</p>
+							</div>
+							
+							<div class="post-shares sticky-shares">
+								<a href="#" class="share-facebook"><i class="fa fa-facebook"></i></a>
+								<a href="#" class="share-twitter"><i class="fa fa-twitter"></i></a>
+								<a href="#" class="share-google-plus"><i class="fa fa-google-plus"></i></a>
+								<a href="#" class="share-pinterest"><i class="fa fa-pinterest"></i></a>
+								<a href="#" class="share-linkedin"><i class="fa fa-linkedin"></i></a>
+								<a href="#"><i class="fa fa-envelope"></i></a>
+							</div>
+
+							<a href="{%url 'blog_detail_short' pk=i.rand %}">WordsMatter/urls/{{i.rand}}</a>
+							<br/><br/>
+
+							
+
+						</div>
+
+							
+						
+							<!-- ad -->
+						<div class="section-row text-center">
+							<a href="#" style="display: inline-block;margin: auto;">
+								<img class="img-responsive" src="{% static 'front/img/ad-2.jpg' %}" alt="">
+							</a>
+						</div>
+						<!-- ad -->
+						
+						<!-- author -->
+						<div class="section-row">
+							<div class="post-author">
+								<div class="media">
+									<div class="media-left">
+										<img class="media-object" src="{% static 'front/img/author.png' %}" alt="">
+									</div>
+									<div class="media-body">
+										<div class="media-heading">
+											<h3>John Doe</h3>
+										</div>
+										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+										<ul class="author-social">
+											<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+											<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+											<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+											<li><a href="#"><i class="fa fa-instagram"></i></a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- /author -->
+
+						<!-- comments -->
+						<div class="section-row">
+							{% if cmcount != 0 %}
+							<div class="section-title">
+								<h2> Comments</h2>
+							</div>
+							{% endif %}
+							<div class="post-comments">
+								<!-- comment -->
+								<div class="media">
+									{% for c in comment %}
+									<div class="media-body">
+										<div class="media-heading">
+											<h4>{{c.name}}</h4>
+											<span class="time">{{c.date}} at {{c.time}}</span>
+											<a href="#" class="reply">Reply</a>
+										</div>
+										<p> {{c.cm}}</p>	
+									</div>
+									{% endfor %}
+								</div>
+								<!-- /comment -->
+							</div>
+						</div>
+						<!-- /comments -->
+
+						<!-- reply -->
+						<div class="section-row">
+							<div class="section-title">
+								<h2>Leave a reply</h2>
+								<p>your email address will not be published. required fields are marked *</p>
+							</div>
+							{% if user.is_authenticated %}
+							<form class="post-reply" action="{% url 'blog_cm_add' pk=code %}" method="POST" >
+								{% csrf_token %}
+								<div class="row">
+									<div class="col-md-12">
+										<div class="form-group">
+											<textarea class="input" name="msg" id="msg"  placeholder="Message"  required></textarea>
+										</div>
+										<button class="primary-button">Submit</button>
+									</div>
+								</div>
+							</form>
+							{% else %}
+							<form class="post-reply" action="{% url 'blog_cm_add' pk=code %}" method="POST" >
+								{% csrf_token %}
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<span>Name *</span>
+											<input class="input" type="text" name="name" required>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<span>Email *</span>
+											<input class="input" type="email" name="email" required>
+										</div>
+									</div>
+									<div class="col-md-12">
+										<div class="form-group">
+											<textarea class="input" name="msg" placeholder="Message"></textarea>
+										</div>
+										<button class="primary-button">Submit</button>
+									</div>
+								</div>
+							</form>
+							{% endif %}
+						</div>
+						<!-- /reply -->
+					</div>
+					<!-- /Post content -->
+
+					<!-- aside -->
+					<div class="col-md-4">
+						<!-- ad -->
+						<div class="aside-widget text-center">
+							<a href="#" style="display: inline-block;margin: auto;">
+								<img class="img-responsive" src="{% static 'front/img/ad-1.jpg' %}" alt="">
+							</a>
+						</div>
+						<!-- /ad -->
+
+						
+
+						<!-- post widget -->
+						<div class="aside-widget">
+							<div class="section-title">
+								<h2>Popular Posts</h2>
+							</div>
+							{% for pop in popblog2 %}
+							{% if pop.ocatid == i.ocatid %}
+							<div class="post post-thumb">
+								<a class="post-img" href=""><img style="height: 200px;" src="{{pop.imgurl}}" alt=""></a>
+								<div class="post-body">
+									<div class="post-meta">
+										<a class="post-category cat-3" href="#">{{pop.category}}</a>
+										<span class="post-date">{{pop.date}}</span>
+									</div>
+									<h3 class="post-title"><a href="{%url 'blog_detail' word=pop.name %}">{{pop.name}}</a></h3>
+								</div>
+							</div>
+							{% endif %}
+							{% endfor %}
+							
+						</div>
+
+{% endfor %}
+						<!-- /post widget -->
+						
+						<!-- catagories -->
+						<div class="aside-widget">
+							<div class="section-title">
+								<h2>Catagories</h2>
+							</div>
+							<div class="category-widget">
+								<ul>
+									{% for p in cat  %}
+									{% if p.count != 0 %}
+									<li><a href="{% url 'blog_all_show' word=p.name  %}" class="cat-1">{{p.name}}<span>{{p.count}}</span></a></li>
+									{% endif %}
+									{% endfor %}
+								</ul>
+
+							</div>
+						</div>
+						<!-- /catagories -->
+						
+						<!-- tags -->
+						<div class="aside-widget">
+							<div class="tags-widget">
+								<ul>
+									{% for tagname in tag %}
+									<li><a href="#">{{tagname}}</a></li>
+									{% endfor %}
+								</ul>
+							</div>
+						</div>
+						<!-- /tags -->
+						
+						<!-- archive -->
+						<div class="aside-widget">
+							<div class="section-title">
+								<h2>QR Code</h2>
+							</div>
+							<div class="archive-widget">
+								{% qr_from_text link size=20 border=6 %}
+							</div>
+						</div>
+						<!-- /archive -->
+					</div>
+					<!-- /aside -->
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /section -->
+
+{% endblock %}

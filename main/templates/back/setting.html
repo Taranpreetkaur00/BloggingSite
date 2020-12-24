@@ -1,0 +1,116 @@
+{% extends 'back/master.html' %}
+{% load static %}
+
+
+{% block body %}
+
+
+    <!--side bar right-->
+         <!--main content start-->
+    <!-- Container Fluid-->
+    <div class="container-fluid" id="container-wrapper">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+          <h1 class="h3 mb-0 text-gray-800">Settings</h1>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="./">Home</a></li>
+            <li class="breadcrumb-item">Panel</li>
+            <li class="breadcrumb-item active" aria-current="page">Settings</li>
+          </ol>
+        </div>
+         <!-- Row -->
+         <div class="row">
+            <!-- Datatables -->
+            <div class="col-lg-12">
+              <div class="card mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Settings</h6>
+                </div>
+               <div class="card-body"> 
+                
+                <form action="{%url 'site_setting' %}"  enctype="multipart/form-data"  method="post">
+                    {% csrf_token %}
+                    
+                    <div class="form-group">
+                    <div class="row">                        
+                    <div class="col-sm-6">
+                        <input type="text" id="name" name="name" value="{{site.name}}" class="form-control" placeholder="Site Title">
+                    </div>
+                    
+                    <div class="col-sm-6">
+                        <input type="text" id="tell" name="tell" value="{{site.tell}}" class="form-control" placeholder="Site Telephone">
+                    </div>
+                    </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="row">                        
+                      <div class="col-sm-6">
+                          <input type="text" id="fb" name="fb" value="{{site.fb}}" class="form-control" placeholder="FaceBook">
+                      </div>
+                      
+                      <div class="col-sm-6">
+                          <input type="text" id="tw" name="tw" value="{{site.tw}}"class="form-control" placeholder="Twitter ">
+                      </div>
+                      </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="row">                        
+                        <div class="col-sm-6">
+                            <input type="text" id="lkdn" name="lkdn" value="{{site.lkdn}}" class="form-control" placeholder="LinkdIn ">
+                        </div>
+                        
+                        <div class="col-sm-6">
+                            <input type="text" id="link" name="link" value="{{site.link}}" class="form-control" placeholder="Link">
+                        </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="row">                        
+                        <div class="col-sm-6">
+                            <input type="text" id="seotxt" name="seotxt" value="{{site.seo_txt}}" class="form-control" placeholder=" SEO Text ">
+                        </div>
+                        
+                        <div class="col-sm-6">
+                            <input type="text" id="seokeyword" name="seokeyword" value="{{site.seo_keywords}}" class="form-control" placeholder=" SEO Keyword ">
+                        </div>
+                        </div>
+                      </div>
+                    <div class="form-group">  
+                    <div class="row">                      
+                    <div class="col-sm-12">
+                        <textarea type="text" id='txt' name="txt" rows='5' class="form-control" placeholder="Short Description">{{site.about}}</textarea>
+                        
+                    </div>
+                    </div>
+                    </div>
+                      
+                    
+                    <div class="form-group">
+                    <div class="row">     
+                    <label class="control-label col-md-2"><b>Select Image:</b></label>
+                    <div class="col-md-5">
+                        <input type="file" value=" {{site.imgname}} "  id="myfile"  name="myfile" class="default" />
+                    </div>
+                    <div class="col-md-5">
+                      <img style="height: 40px; width: 190px;" src="{{site.imgurl}}">
+                    </div>
+                    </div>
+                    </div>
+                    <div class="form-group">
+                    <div class="row">     
+                    <div class="col-lg-offset-10 col-lg-2">
+                        <button class="btn btn-dark" type="submit">Submit</button>
+                    </div>
+                    </div>
+                    </div>
+                </form>
+                </div>
+               </div> 
+              </div> 
+               
+{% endblock %}
+{% block script %}
+<script src="{%static 'ckeditor/ckeditor.js' %}"></script>
+<script>
+        CKEDITOR.replace('txt');
+</script>
+  {% endblock %}

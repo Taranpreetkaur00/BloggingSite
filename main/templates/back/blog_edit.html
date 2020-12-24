@@ -1,0 +1,100 @@
+{% extends 'back/master.html' %}
+{% load static %}
+
+
+{% block body %}
+
+
+    <!--side bar right-->
+         <!--main content start-->
+    <!-- Container Fluid-->
+    <div class="container-fluid" id="container-wrapper">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+          <h1 class="h3 mb-0 text-gray-800">Edit Blog</h1>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="./">Home</a></li>
+            <li class="breadcrumb-item">Blog</li>
+            <li class="breadcrumb-item active" aria-current="page">EditBlog</li>
+          </ol>
+        </div>
+         <!-- Row -->
+         <div class="row">
+            <!-- Datatables -->
+            <div class="col-lg-12">
+              <div class="card mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Edit Blog</h6>
+                </div>
+               <div class="card-body"> 
+                
+                <form action="{%url 'blog_edit' pk=pk %}"  enctype="multipart/form-data"  method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                    <div class="row">                        
+                    <div class="col-sm-5">
+                        <input type="text" id="blogtitle" value="{{blog.name}}" name="blogtitle" class="form-control" placeholder="Blog Title">
+                    </div>
+                    <h5 class="col-sm-2">Category:</h5>
+                    <div class="col-sm-5">
+                        <select class="form-control" id="blogcat" name="blogcat" >
+                            <option value="{{blog.catid}}">{{blog.category}}</option>   
+                        {% for i in cat %}
+                        <option value="{{i.pk}}">{{i.catname}} | {{i.name}}</option>
+                          {% endfor %}
+                        
+                        </select>
+                    </div>
+                    </div>
+                    </div>
+                    <div class="form-group">  
+                    <div class="row">                      
+                    <div class="col-sm-12">
+                        <textarea type="text"  id='blogtxtshort' name="blogtxtshort" rows='5' class="form-control" placeholder="Short Description">{{blog.short_txt}}</textarea>
+                    </div>
+                    </div>
+                    </div>
+                    <div class="form-group">                    
+                    <div class="col-sm-12">
+                        <textarea type="text" id="blogtxt" name="blogtxt" rows='5' class="form-control" placeholder="Full Description">{{blog.body_txt}}</textarea>
+                    </div>
+                    </div>  
+
+                    
+
+                    <div class="form-group">
+                    <div class="row">     
+                    <label class="control-label col-md-2"><b>Select Image:</b></label>
+                    <div class="col-md-4">
+                        <input type="file"  value="{{blog.imgname}}" id="myfile"  name="myfile" class="default" />
+                        <br/><br/>
+                        <textarea type="text" id='tag' name="tag" rows='5' class="form-control" placeholder="Tags">{{blog.tag}}</textarea>
+                    </div>
+                    <div class="col-md-4">
+                        <img style="height: 250px; width: 350px;" src="{{blog.imgurl}}">
+                    </div>
+                    </div>
+                    </div>
+                    <div class="form-group">
+                    <div class="row">     
+                    <div class="col-lg-offset-10 col-lg-2">
+                        <button class="btn btn-dark" type="submit">Submit</button>
+                    </div>
+                    </div>
+                    </div>
+                </form>
+                </div>
+               </div> 
+              </div> 
+            
+         
+         
+      
+    
+{% endblock %} 
+{% block script %}
+<script src="{%static 'ckeditor/ckeditor.js' %}"></script>
+<script>
+        CKEDITOR.replace('blogtxt');
+        CKEDITOR.replace('blogtxtshort');
+</script>
+  {% endblock %}

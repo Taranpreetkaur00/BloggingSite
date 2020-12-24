@@ -1,0 +1,27 @@
+{% extends 'back/master.html' %}
+{% load static %}
+{% block head %}
+
+<script>
+
+  function goback(){
+    window.history.back();
+  }
+
+</script>
+
+  {% endblock %}
+{% block body %}
+   <!-- Container Fluid-->
+   <div class="container-fluid" id="container-wrapper">
+    <div class="text-center">
+      <img src="{% static 'back/img/error.svg' %}" style="max-height: 100px;" class="mb-3">
+      <h3 class="text-gray-800 font-weight-bold">Oopss!</h3>
+      <p class="lead text-gray-800 mx-auto">{{error}}</p>
+      <button class="btn btn-dark mb-1" onclick="goback()">&larr; Back </button>
+    </div>
+
+    
+         
+
+{% endblock %} 
